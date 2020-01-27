@@ -14,6 +14,8 @@ def print_first_num_lines(file_name: str, num: int) -> None:
         else:
             print(line)
             counter+=1
+    file.close()
+    return
 
 
 def write_dict(file_name: str) -> dict:
@@ -27,7 +29,8 @@ def write_dict(file_name: str) -> dict:
             first_line=False
         else:
             product_info = line.split(',')
-            out_dict[int(product_info[0])]=int(product_info[-1]) # We require our keys/values to be integers.
+            out_dict[product_info[0]]=int(product_info[-1]) # We require our keys/values to be integers.
+    file.close()
     return out_dict
         
         
@@ -54,13 +57,14 @@ def insight_coding_challenge(order_file_name: str, product_file_name: str, out_f
             first_line=False
         else:
             order_info=line.split(',')
-            dep_num=prod_dept_dict[int(order_info[1])]
+            dep_num=prod_dept_dict[order_info[1]]
             first_time=1-int(order_info[-1])
             if dep_num not in department_info_dict:
                 department_info_dict[dep_num]=[1,first_time]
             else:
                 department_info_dict[dep_num][0]+=1
                 department_info_dict[dep_num][1]+=first_time
+    order_file.close()
     # Time check
     print("Second step completed in ",time.time()-t," seconds.")
     
@@ -84,9 +88,11 @@ def insight_coding_challenge(order_file_name: str, product_file_name: str, out_f
         #Here, we write the data as a line in our output file.                
         out_file.write(str_dep_num+str_order_num+str_first_order_num+str_percentage)
         out_file.write("\n")
-
+    out_file.close()
     # Time check
     print("Third step completed in ",time.time()-t," seconds.")
+    
+    return
 
 
     
